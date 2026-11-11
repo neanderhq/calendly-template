@@ -1,8 +1,12 @@
 # Next.js + TypeScript
 
+This is the Scheduling template extracted from production project
+`proj_b554a66e6f58`. See [template onboarding and provenance](docs/template-onboarding.md)
+for its release contract, fictional seed, initial login and complete image verification.
+
 Use Node 24 and pnpm 11.18.0. Run `pnpm install --frozen-lockfile`; `pnpm check` checks types and `pnpm build` prepares the production standalone output. The app stores accounts and profiles in PostgreSQL. Start the local database and apply migrations as described below, then run `pnpm dev` at http://127.0.0.1:3000.
 
-Publish uses `.neander/compose.yaml`. For local production verification, run `docker build -f .neander/Dockerfile -t my-next-app .` and `docker run --rm -p 8080:8080 my-next-app`. `/api/health` returns JSON. `public/` and `.next/static` are copied explicitly into the runtime image.
+Publish uses `.neander/compose.yaml`. For local production verification, use the shared template verifier described in the onboarding guide; it supplies a disposable database and the required auth settings to the built image. `/api/health` returns JSON. `public/` and `.next/static` are copied explicitly into the runtime image.
 
 Use server-side runtime environment variables for callback and backend origins; `NEXT_PUBLIC_*` values are frozen during the build. Keep browser calls relative to `/api`. Never commit `.env` files with credentials. Stack provenance is in `docs/architecture/stack-decision.md`.
 
@@ -22,17 +26,14 @@ The production image build and app startup do not apply migrations or need build
 
 This private Neander template repository owns the application, pinned lockfiles, deployment recipe, and [incremental building blocks](add-ons.md). Changes are reviewed here independently of the Neander application. New projects take a one-time copy of a selected commit; starter updates never overwrite existing projects.
 
-Run from this repository root:
+Run from this repository root with a disposable database configured:
 
 ```sh
-docker build -f .neander/Dockerfile -t neander-starter-nextjs:local .
-python3 scripts/test_entrypoint.py
-docker run --detach --name starter-check --publish 127.0.0.1:8080:8080 neander-starter-nextjs:local
-python3 scripts/smoke.py http://127.0.0.1:8080
-docker rm --force starter-check
+neander-template check .
+neander-template verify .
 ```
 
-The CI workflow runs these base container checks on every pull request and main push. Database CRUD and login checks require the isolated local database described above; follow the block instructions and run `.neander/check-auth.mjs` only after applying the committed migration.
+The shared CI workflow runs the base container checks, seeded product behavior, database persistence and login checks on every pull request and main push. It applies the committed migrations before running `.neander/check-auth.mjs`.
 
 Pinned dependencies, production recipes, and building blocks were preserved during extraction from Neander. Repeat production certification when dependencies or base-image tags change; local container checks do not establish Cloud Run latency or real OAuth-provider login. No open-source license is granted by this private repository.
 
