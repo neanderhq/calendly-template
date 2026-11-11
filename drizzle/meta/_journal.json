@@ -1,0 +1,83 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1791947604182,
+      "tag": "0000_legal_warpath",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791985079817,
+      "tag": "0001_foamy_gabe_jones",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792192445502,
+      "tag": "0002_majestic_mulholland_black",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792430235457,
+      "tag": "0003_bored_changeling",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792448934861,
+      "tag": "0004_lean_omega_sentinel",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792449202231,
+      "tag": "0005_awesome_wolf_cub",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792451179020,
+      "tag": "0006_backfill_booking_contacts",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1792457274513,
+      "tag": "0007_sweet_sister_grimm",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1792504652430,
+      "tag": "0008_nostalgic_wonder_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1792505195616,
+      "tag": "0009_conscious_korvac",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1792673170555,
+      "tag": "0010_empty_magma",
+      "breakpoints": true
+    }
+  ]
+}
