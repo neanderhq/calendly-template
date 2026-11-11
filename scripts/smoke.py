@@ -26,6 +26,8 @@ asset_status, asset_mime, _ = get(asset[1].decode())
 assert asset_status == 200 and "javascript" in asset_mime
 status, mime, body = get("/api/health")
 assert status == 200 and "application/json" in mime and json.loads(body)["status"] == "ok"
-status, mime, body = get("/api/missing")
+# Two-segment paths also match /[username]/[eventSlug] in this application.
+# Exercise an unmatched route, not its friendly unavailable-booking page.
+status, mime, body = get("/api/missing/route")
 assert status == 404
 print(f"{starter}: production smoke passed")

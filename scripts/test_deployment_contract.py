@@ -18,13 +18,16 @@ class DeploymentExamplesTests(unittest.TestCase):
         self.assertEqual(metadata['ingress']['root_probe'], '/')
         self.assertEqual(metadata['probes'], [{'path': '/api/health', 'success_status_range': '2xx'}])
         requirements = {item['name']: item for item in metadata['environment']}
-        self.assertEqual(set(requirements), {'DATABASE_URL', 'BETTER_AUTH_URL', 'BETTER_AUTH_SECRET'})
+        self.assertEqual(set(requirements), {'DATABASE_URL', 'BETTER_AUTH_URL', 'BETTER_AUTH_SECRET', 'DEMO_HOST_PASSWORD'})
         self.assertEqual(requirements['DATABASE_URL']['provider'], 'Neon')
         self.assertEqual(requirements['BETTER_AUTH_URL']['provider'], 'Neander')
         self.assertEqual(requirements['BETTER_AUTH_URL']['binding'], 'public_origin')
         self.assertEqual(requirements['BETTER_AUTH_SECRET']['source'], 'generated')
         self.assertIsNone(requirements['BETTER_AUTH_SECRET']['provider'])
         self.assertEqual(requirements['BETTER_AUTH_SECRET']['generator'], 'opaque-random')
+        self.assertEqual(requirements['DEMO_HOST_PASSWORD']['source'], 'generated')
+        self.assertIsNone(requirements['DEMO_HOST_PASSWORD']['provider'])
+        self.assertEqual(requirements['DEMO_HOST_PASSWORD']['generator'], 'opaque-random')
         self.assertTrue(all(item['required'] and item['service'] == 'web' for item in requirements.values()))
 
     def test_database_and_auth_recipes_declare_complete_requirements(self):
