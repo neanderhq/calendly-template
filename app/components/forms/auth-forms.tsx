@@ -83,7 +83,7 @@ export function LoginForm() {
       <Input name="password" label="Password" type="password" autoComplete="current-password" required />
       {error && <ErrorField>{error}</ErrorField>}
       <Button type="submit" disabled={pending}>{pending ? "Signing in…" : "Log in"}</Button>
-      <p className="form-switch">New to Saffron? <Link href="/signup">Create an account</Link></p>
+      <p className="form-switch">New to Daymark? <Link href="/signup">Create an account</Link></p>
     </form>
   );
 }

@@ -1,10 +1,12 @@
-# Saffron
+# Daymark
 
 A scheduling app with public booking pages and a private host dashboard.
 
-**Neander library:** Scheduling · **Category:** Scheduling
+**Product inspiration:** Calendly-inspired scheduling and booking, with its own Daymark branding.
 
-![Saffron with fictional sample data](.neander/thumbnail.png)
+**Neander library:** Daymark · **Category:** Scheduling
+
+![Daymark with fictional sample data](.neander/thumbnail.png)
 
 ## What you can build
 
@@ -15,7 +17,7 @@ A scheduling app with public booking pages and a private host dashboard.
 
 ## How this fits into Neander
 
-This is the open-source app behind Neander’s **Scheduling** starter. You can
+This is the open-source app behind Neander’s **Daymark** starter. You can
 run and modify it on its own without a Neander account, or use it as a starting
 point in Neander.
 
@@ -41,8 +43,8 @@ PostgreSQL service.
 ### 1. Install the app
 
 ```sh
-git clone https://github.com/neanderhq/calendly-template.git
-cd calendly-template
+git clone https://github.com/neanderhq/daymark.git
+cd daymark
 pnpm install --frozen-lockfile
 cp .env.example .env.local
 ```
@@ -50,7 +52,7 @@ cp .env.example .env.local
 ### 2. Start local PostgreSQL
 
 ```sh
-PGPORT=55432 docker compose -p saffron-dev -f compose.dev.yaml up -d --wait
+PGPORT=55432 docker compose -p daymark-dev -f compose.dev.yaml up -d --wait
 ```
 
 The example database URL uses port `55432`. The Compose project name keeps

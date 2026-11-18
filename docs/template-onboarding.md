@@ -7,16 +7,16 @@ The workflow pins and publication runs below describe the original onboarding.
 See the repository README for current local setup and contributor instructions.
 
 
-This repository is the Saffron scheduling application copied from Neander project
+This repository is the Daymark scheduling application copied from Neander project
 `proj_b554a66e6f58`, source commit
 `c5f9c0c2147a2b2c30fa6b5849dc962e520c7c89` (the deployed commit at extraction).
 The initial GitHub commit `4060c53a` contains the same 164 tracked files, byte for
 byte. Application pages, styles, API handlers, Better Auth configuration,
 PostgreSQL/Drizzle schema and committed migrations are preserved.
 
-`neanderhq/calendly-template` replaces the unrelated `neanderhq/calendly-clone`
+`neanderhq/daymark` replaces the unrelated `neanderhq/calendly-clone`
 under the existing catalog ID `calendly`. The library title is **Scheduling**;
-the application itself remains branded **saffron**.
+the application itself remains branded **daymark**.
 
 ## Contract and release
 

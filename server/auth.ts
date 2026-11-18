@@ -20,7 +20,7 @@ function createAuth() {
   return betterAuth({
     baseURL,
     trustedOrigins,
-    secret: process.env.BETTER_AUTH_SECRET || (process.env.NODE_ENV !== "production" ? "local-only-saffron-fiddle-zephyr-secret-change-me" : required("BETTER_AUTH_SECRET")),
+    secret: process.env.BETTER_AUTH_SECRET || (process.env.NODE_ENV !== "production" ? "local-only-daymark-fiddle-zephyr-secret-change-me" : required("BETTER_AUTH_SECRET")),
     database: drizzleAdapter(getDb(), { provider: "pg" }),
     emailAndPassword: { enabled: true, requireEmailVerification: false },
     user: {

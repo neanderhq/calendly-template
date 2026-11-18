@@ -23,7 +23,7 @@ export default async function SettingsPage() {
   return (
     <main className="app-shell">
       <header className="app-header">
-        <Link className="brand" href="/dashboard" aria-label="Saffron dashboard"><span className="brand-mark" aria-hidden="true">s</span><span>saffron</span></Link>
+        <Link className="brand" href="/dashboard" aria-label="Daymark dashboard"><span className="brand-mark" aria-hidden="true">d</span><span>daymark</span></Link>
         <Link className="text-link" href="/dashboard">← Back to your workspace</Link>
       </header>
       <div className="settings-content">
