@@ -2,7 +2,7 @@ contract_version: 1
 id: calendly
 title: Scheduling
 description: A working scheduling app with public booking pages, availability, meeting polls and contacts.
-category: Business & Productivity
+category: Scheduling
 best_for: Consultants and teams coordinating meetings
 features: [Booking pages, Availability, Meeting polls, Contacts, One-off links]
 included: [Scheduling application, PostgreSQL migrations, Fictional sample data]
