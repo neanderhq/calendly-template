@@ -52,7 +52,7 @@ export default async function BookingLinksPage() {
   return (
     <main className="app-shell">
       <header className="app-header">
-        <Link className="brand" href="/" aria-label="Saffron home"><span className="brand-mark" aria-hidden="true">s</span><span>saffron</span></Link>
+        <Link className="brand" href="/" aria-label="Daymark home"><span className="brand-mark" aria-hidden="true">d</span><span>daymark</span></Link>
         <Link className="text-link" href="/dashboard">← Back to your workspace</Link>
         <nav className="account-nav" aria-label="Account navigation">
           <span className="account-greeting">{session.user.name}</span>

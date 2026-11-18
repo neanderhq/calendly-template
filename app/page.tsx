@@ -10,9 +10,9 @@ export default async function Home() {
   return (
     <main className="landing-shell">
       <header className="site-header">
-        <Link className="brand" href="/" aria-label="Saffron home">
-          <span className="brand-mark" aria-hidden="true">s</span>
-          <span>saffron</span>
+        <Link className="brand" href="/" aria-label="Daymark home">
+          <span className="brand-mark" aria-hidden="true">d</span>
+          <span>daymark</span>
         </Link>
         <nav className="site-nav" aria-label="Account">
           {session ? (

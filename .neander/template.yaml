@@ -1,6 +1,6 @@
 contract_version: 1
 id: calendly
-title: Scheduling
+title: Daymark
 description: A working scheduling app with public booking pages, availability, meeting polls and contacts.
 category: Scheduling
 best_for: Consultants and teams coordinating meetings

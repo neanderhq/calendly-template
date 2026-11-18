@@ -12,7 +12,7 @@ export default async function SignupPage() {
 
   return (
     <main className="auth-shell">
-      <Link className="brand" href="/" aria-label="Saffron home"><span className="brand-mark" aria-hidden="true">s</span><span>saffron</span></Link>
+      <Link className="brand" href="/" aria-label="Daymark home"><span className="brand-mark" aria-hidden="true">d</span><span>daymark</span></Link>
       <section className="auth-panel">
         <p className="eyebrow page-eyebrow">A fresh start</p>
         <h1>Create your account</h1>
