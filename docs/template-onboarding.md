@@ -1,5 +1,12 @@
 # Scheduling template
 
+Current release process: this MIT-licensed application runs app checks and builds
+in its own CI. Neander maintainers manually verify and publish template releases
+from private CI; contributors need no private workflow or publishing credentials.
+The workflow pins and publication runs below describe the original onboarding.
+See the repository README for current local setup and contributor instructions.
+
+
 This repository is the Saffron scheduling application copied from Neander project
 `proj_b554a66e6f58`, source commit
 `c5f9c0c2147a2b2c30fa6b5849dc962e520c7c89` (the deployed commit at extraction).
