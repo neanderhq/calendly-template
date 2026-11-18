@@ -1,55 +1,148 @@
-# Next.js + TypeScript
+# Saffron
 
-This is the Scheduling template extracted from production project
-`proj_b554a66e6f58`. See [template onboarding and provenance](docs/template-onboarding.md)
-for its release contract, fictional seed, initial login and complete image verification.
+A scheduling app with public booking pages and a private host dashboard.
 
-Use Node 24 and pnpm 11.18.0. Run `pnpm install --frozen-lockfile`; `pnpm check` checks types and `pnpm build` prepares the production standalone output. The app stores accounts and profiles in PostgreSQL. Start the local database and apply migrations as described below, then run `pnpm dev` at http://127.0.0.1:3000.
+**Neander library:** Scheduling · **Category:** Scheduling
 
-Publish uses `.neander/compose.yaml`. For local production verification, use the shared template verifier described in the onboarding guide; it supplies a disposable database and the required auth settings to the built image. `/api/health` returns JSON. `public/` and `.next/static` are copied explicitly into the runtime image.
+![Saffron with fictional sample data](.neander/thumbnail.png)
 
-Use server-side runtime environment variables for callback and backend origins; `NEXT_PUBLIC_*` values are frozen during the build. Keep browser calls relative to `/api`. Never commit `.env` files with credentials. Stack provenance is in `docs/architecture/stack-decision.md`.
+## What you can build
 
-Follow the [Drizzle development database setup](.neander/blocks/drizzle/README.md#local-development-database): use local Docker PostgreSQL, an existing development PostgreSQL instance, or optional managed development Neon. The local Compose file is separate from the production recipe. Local credentials belong in ignored `.env.local` only.
+- Publish a booking page with an event type, meeting duration and custom questions.
+- Set weekday availability, date overrides, buffers and booking limits.
+- Manage bookings and contacts, and create one-off booking links.
+- Collect votes in meeting polls and choose a time.
 
-For the local Compose setup, create `.env.local` with the loopback `DATABASE_URL` from the Drizzle instructions, a random `BETTER_AUTH_SECRET` of at least 32 characters, and `BETTER_AUTH_URL=http://127.0.0.1:3000`. Then apply the committed migration and launch the preview:
+## How this fits into Neander
+
+This is the open-source app behind Neander’s **Scheduling** starter. You can
+run and modify it on its own without a Neander account, or use it as a starting
+point in Neander.
+
+1. Choose **Use Template** in [Neander](https://neander.ai).
+2. Neander creates a normal project from a registered version of this repository,
+   with fresh Git history, and publishes a working app with sample data.
+3. Open the live app and continue in the project. Prompt Neander to make changes
+   in the codebase, just as you would in any other project.
+4. Use **Publish** again when you want your changes reflected in the live app.
+
+Your project starts from one version. Later changes to this repository or the
+template library do not overwrite your project. Linked IDE projects use their
+checkout; web projects use Neander’s managed project source.
+
+## Run locally
+
+Stack: Next.js, React, TypeScript, PostgreSQL, Drizzle and Better Auth.
+
+Use **Node 24.21.0** and **pnpm 11.18.0**. Versions are listed in
+`mise.toml`; if you use mise, run `mise install`. Install Docker for the local
+PostgreSQL service.
+
+### 1. Install the app
+
+```sh
+git clone https://github.com/neanderhq/calendly-template.git
+cd calendly-template
+pnpm install --frozen-lockfile
+cp .env.example .env.local
+```
+
+### 2. Start local PostgreSQL
+
+```sh
+PGPORT=55432 docker compose -p saffron-dev -f compose.dev.yaml up -d --wait
+```
+
+The example database URL uses port `55432`. The Compose project name keeps
+this app’s development data separate from other checkouts.
+
+### 3. Configure the app
+
+Edit `.env.local`. The database URL is already set for the local service above.
+
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL` | PostgreSQL connection used by this local app. |
+| `BETTER_AUTH_URL` | The browser origin, initially `http://127.0.0.1:3000`. |
+| `BETTER_AUTH_SECRET` | A random authentication secret. |
+| `DEMO_HOST_PASSWORD` | A password of at least 12 characters for the fictional demo account. |
+
+Generate a value for each blank secret and paste it into the environment file:
+
+```sh
+node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"
+```
+
+These database credentials are for the loopback development service. Neander
+supplies a managed database connection and generated runtime secrets when it
+publishes a project. Keep your local environment file out of Git.
+
+### 4. Initialize and start
 
 ```sh
 node --env-file=.env.local .neander/migrate.mjs
+node --env-file=.env.local .neander/seed.mjs
 pnpm dev
 ```
 
-The production image build and app startup do not apply migrations or need build-time credentials. Publish supplies the managed Neon URL and generated auth secret through `.neander/compose.yaml`.
+Open **http://127.0.0.1:3000**.
 
+Sign in as **`maya.chen@example.invalid`** with your `DEMO_HOST_PASSWORD`.
 
-## Maintenance and verification
+### Try the booking flow
 
-This private Neander template repository owns the application, pinned lockfiles, deployment recipe, and [incremental building blocks](add-ons.md). Changes are reviewed here independently of the Neander application. New projects take a one-time copy of a selected commit; starter updates never overwrite existing projects.
+Sign in, review **Availability**, then open `/maya-chen/discovery-call` in a separate browser session. Book a free slot and check the host dashboard for the new booking.
 
-Run from this repository root with a disposable database configured:
+## Sample data
+
+A fictional Maya Chen host account, a Discovery call event, weekday availability, contacts, bookings and a meeting poll.
+
+All sample people, organizations and responses are fictional. Seed retries preserve
+existing changes and credentials. Normal app restarts do not reset your data.
+
+## Development and checks
 
 ```sh
-neander-template check .
-neander-template verify .
+pnpm check
+pnpm test
+pnpm build
 ```
 
-The shared CI workflow runs the base container checks, seeded product behavior, database persistence and login checks on every pull request and main push. It applies the committed migrations before running `.neander/check-auth.mjs`.
+Public CI runs these app checks and a production build without Neander’s private
+publishing tools or cloud credentials. Full template image/database verification
+and library publication are run manually by Neander maintainers in private CI.
+Merging a contribution does not automatically update the template library.
 
-Pinned dependencies, production recipes, and building blocks were preserved during extraction from Neander. Repeat production certification when dependencies or base-image tags change; local container checks do not establish Cloud Run latency or real OAuth-provider login. No open-source license is granted by this private repository.
+## Repository layout
 
-## Keeping Publish ready
+| Path | Purpose |
+| --- | --- |
+| `app/` | Pages, dashboard components and API routes. |
+| `server/` | Scheduling, availability, booking and authentication logic. |
+| `drizzle/` | Versioned PostgreSQL migrations. |
+| `.neander/template.yaml` | Library metadata and install/check/test/seed commands. |
+| `.neander/compose.yaml` | Normal Neander Publish recipe and runtime requirements. |
+| `.neander/seed.mjs` | Fictional demo initializer. |
+| `scripts/verify-template.mjs` | Maintainer verification of the built app image. |
 
-Follow [the deployment contract](docs/deployment-contract.md) when changing database or authentication setup. Keep the maintained production recipe in sync with this implementation.
+## Maintaining the Neander template
+
+The `.neander/template.yaml` manifest defines the library entry and verification
+commands. `.neander/compose.yaml` defines the app’s normal Publish recipe,
+including PostgreSQL, migrations and generated secrets. Keep these files in sync
+when changing database, authentication or runtime requirements.
+
+Neander’s private release workflow checks out an exact GitHub commit, verifies
+the built app with a disposable database, and registers its image and metadata.
+The application source stays in this repository.
+
+## Contributing
+
+Fork the repository, make a focused change, and run the checks above before
+opening a pull request. Include the behavior you changed and how you verified it.
+A maintainer decides when to publish a new version to Neander’s library.
 
 ## License
 
 [MIT](LICENSE). Third-party components retain their respective licenses and
 existing attribution notices.
-
-## Public CI and Neander releases
-
-Public CI installs locked dependencies, checks types/syntax, runs app tests and
-builds the application. It requires no Neander publishing credentials or private
-tools. Neander's private release workflow separately verifies the committed
-application image with a disposable database, then publishes it to the template
-catalog. Existing projects continue through normal editing and Publish.
